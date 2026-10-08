@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/* Uma caixa de entrada que alguém olha oito horas por dia. Fundo frio e calmo,
+   tinta quase preta, azul de operação para a ação, e âmbar só para prazo e
+   custo, que são as duas coisas que não podem passar despercebidas. */
+@theme {
+  --color-papel: oklch(0.981 0.003 247.9);
+  --color-tarjeta: oklch(1 0 0);
+  --color-tinta: oklch(0.24 0.018 256.1);
+  --color-tinta-media: oklch(0.505 0.018 257.4);
+  --color-tinta-tenue: oklch(0.665 0.015 259.2);
+  --color-linea: oklch(0.906 0.008 253.6);
+  --color-marca: oklch(0.45 0.112 243.8);
+  --color-marca-claro: oklch(0.957 0.025 243.1);
+  --color-prazo: oklch(0.56 0.131 64.2);
+  --color-prazo-claro: oklch(0.964 0.034 78.6);
+  --color-bem: oklch(0.50 0.112 156.4);
+  --color-bem-claro: oklch(0.957 0.028 158.1);
+  --color-alto: oklch(0.52 0.191 27.1);
+  --color-alto-claro: oklch(0.961 0.021 22.8);
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Code", monospace;
+
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.4rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+}
+
+@layer base {
+  * { border-color: var(--color-linea); }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--color-papel);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible { outline: 2px solid var(--color-marca); outline-offset: 2px; }
+  h1, h2, h3 { letter-spacing: -0.014em; }
+}
+
+@layer utilities {
+  .mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+  .clave { font-family: var(--font-mono); font-size: 0.78em; letter-spacing: -0.02em; white-space: nowrap; }
+  .sin-barra::-webkit-scrollbar { display: none; }
+  .sin-barra { scrollbar-width: none; }
+}
+
+/* La lista de avisos se coloca con desplazamiento fijo y su ancho completo se
+   sale de la pantalla a 390px. Sin esto hay scroll horizontal en todo el sitio. */
+[data-sonner-toaster] { max-width: calc(100vw - 2rem); }
+
+@keyframes sube { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+.sube { animation: sube 0.22s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
